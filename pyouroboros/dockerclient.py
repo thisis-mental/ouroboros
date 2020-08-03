@@ -378,7 +378,7 @@ class Container(BaseImageObject):
                     try:
                         self.docker.client.volumes.prune()
                     except APIError as e:
-                        self.logger.error("Could not delete unused volume for %s, Error: %s", container.name, e)
+                        self.logger.error("Could not prune unused volumes, Error: %s", e)
             
             updated_count += 1
 
