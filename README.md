@@ -29,7 +29,7 @@ Ouroboros is deployed via docker image like so:
 ```bash
 docker run -d --name ouroboros \
   -v /var/run/docker.sock:/var/run/docker.sock \
-  gmt2001/ouroboros
+  thisismental/ouroboros
 ```
 
 > This is image is compatible for amd64, arm64, and arm/v7 CPU architectures
@@ -39,7 +39,7 @@ or via `docker-compose`:
 [Official Example](docker-compose.yml)
 
 ## Examples
-Per-command and scenario examples can be found in the [wiki](https://github.com/gmt2001/ouroboros/wiki/Usage)
+Per-command and scenario examples can be found in the [wiki](https://github.com/thisismental/ouroboros/wiki/Usage)
 
 ## Contributing
 
