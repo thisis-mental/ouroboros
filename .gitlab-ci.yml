@@ -18,13 +18,13 @@ stages:
     changes:
       - "Dockerfile*"
       - ouroboros
-      - thisismental/*
+      - pyouroboros/*
       - .gitlab-ci.yml
   before_script:
     - mkdir $HOME/.docker
     - echo '{"experimental":"enabled"}' > $HOME/.docker/config.json
     - if [[ $CI_COMMIT_REF_NAME == "master" ]]; then
-          export TAG=$(grep -i version thisismental/__init__.py | cut -d \  -f3 | tr -d \");
+          export TAG=$(grep -i version pyouroboros/__init__.py | cut -d \  -f3 | tr -d \");
       else
           export TAG="develop";
       fi
@@ -57,7 +57,7 @@ flake8:
     - source venv/bin/activate
     - pip install -U flake8
   script:
-    - flake8 --max-line-length 120 ouroboros *.py thisismental/*.py
+    - flake8 --max-line-length 120 ouroboros *.py pyouroboros/*.py
 
 amd64:
   <<: *common_build
