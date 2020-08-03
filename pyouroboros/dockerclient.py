@@ -371,12 +371,14 @@ class Container(BaseImageObject):
                     run_hook('before_image_cleanup', None, locals)
                     self.client.images.remove(current_image.id)
                     self.docker.client.images.prune()
+                    self.logger.info('Images pruned')
                 except APIError as e:
                     self.logger.error("Could not delete old image for %s, Error: %s", container.name, e)
             
             if self.config.cleanup_unused_volumes:
                     try:
                         self.docker.client.volumes.prune()
+                        self.logger.info('Volumes pruned')
                     except APIError as e:
                         self.logger.error("Could not prune unused volumes, Error: %s", e)
             
