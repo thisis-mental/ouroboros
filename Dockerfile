@@ -9,12 +9,12 @@ COPY /requirements.txt /setup.py /ouroboros /README.md /app/
 RUN apk add --no-cache tzdata && \
     pip install --no-cache-dir -r requirements.txt
 
-COPY /pyouroboros /app/pyouroboros
+COPY /thisismental /app/thisismental
 
 RUN pip install --no-cache-dir .
 
-RUN mkdir /app/pyouroboros/hooks
+RUN mkdir /app/thisismental/hooks
 
-VOLUME /app/pyouroboros/hooks
+VOLUME /app/thisismental/hooks
 
 ENTRYPOINT ["ouroboros"]
