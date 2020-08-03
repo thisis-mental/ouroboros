@@ -40,6 +40,23 @@ class NotificationManager(object):
                 f'Host: {self.config.hostname}',
                 f'Time: {now.strftime("%Y-%m-%d %H:%M:%S")}',
                 f'Next Run: {next_run}']
+        elif kind == 'monitor':
+            now = datetime.now(timezone.utc).astimezone()
+            title = f'Ouroboros has detected updates!'
+            body_fields = [
+                f"Host/Socket: {self.config.hostname} / {socket.split('//')[1]}",
+                f"Containers Monitored: {self.data_manager.monitored_containers[socket]}",
+                f"Total Containers Updated: {self.data_manager.total_updated[socket]}"
+            ]
+            body_fields.extend(
+                [
+                    "{} updated from {} to {}".format(
+                        container.name,
+                        old_image if mode == 'service' else old_image.short_id.split(':')[1],
+                        new_image.short_id.split(':')[1]
+                    ) for container, old_image, new_image in container_tuples
+                ]
+            )
         else:
             title = 'Ouroboros has updated containers!'
             body_fields = [
@@ -60,4 +77,4 @@ class NotificationManager(object):
         body = '\r\n'.join(body_fields)
 
         if self.apprise.servers:
-            self.apprise.notify(title=title, body=body)
+            self.apprise.notify(title=title, body=body, body_format=apprise.NotifyFormat.TEXT)

@@ -1,6 +1,4 @@
-FROM amd64/python:3.7.2-alpine
-
-LABEL maintainers="dirtycajunrice,circa10a"
+FROM python:3.7.2-alpine
 
 ENV TZ UTC
 
@@ -14,5 +12,9 @@ RUN apk add --no-cache tzdata && \
 COPY /pyouroboros /app/pyouroboros
 
 RUN pip install --no-cache-dir .
+
+RUN mkdir /app/pyouroboros/hooks
+
+VOLUME /app/pyouroboros/hooks
 
 ENTRYPOINT ["ouroboros"]
