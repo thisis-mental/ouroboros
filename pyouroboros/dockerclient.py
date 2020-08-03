@@ -370,6 +370,7 @@ class Container(BaseImageObject):
                     locals['image'] = current_image
                     run_hook('before_image_cleanup', None, locals)
                     self.client.images.remove(current_image.id)
+                    self.docker.client.images.prune()
                 except APIError as e:
                     self.logger.error("Could not delete old image for %s, Error: %s", container.name, e)
             
